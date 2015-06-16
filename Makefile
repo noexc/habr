@@ -1,11 +1,12 @@
 ARDUINO := /usr/share/arduino
 AVR := /usr/avr
+DEVICE := $(shell ls -t /dev/tty* | grep -E 'ACM|USB' | head -1)
 
 paranoid: tone.c
 	avr-gcc -c -g -Os -Wall -pedantic -ansi -fno-exceptions -ffunction-sections -fdata-sections \
 	-std=iso9899:1999 \
 	-Wall -pedantic \
-  -Wmissing-prototypes \
+	-Wmissing-prototypes \
 	-pedantic-errors -Wextra -Wall -Waggregate-return -Wcast-align \
 	-Wcast-qual -Wchar-subscripts -Wcomment -Wconversion \
 	-Wdisabled-optimization \
@@ -37,6 +38,6 @@ link: paranoid
 clean:
 	rm -f *.elf *.o *.d *.eep *.hex
 
-flash:
-	avrdude -vvv -p atmega328p -c arduino -P /dev/ttyACM0 -U flash:w:tone.c.hex
+flash: link
+	avrdude -vvv -p atmega328p -b 57600 -c arduino -P $(DEVICE) -U flash:w:tone.c.hex
 
