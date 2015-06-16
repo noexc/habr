@@ -9,8 +9,11 @@
 #include "tone.h"
 
 // Morse settings
-inline uint16_t tone_hz() { return 985; }
-inline float dit_time() { return 0.05; }
+// volume is 1 - 8, 8 being loudest
+inline uint8_t volume() { return 8; }
+inline uint16_t tone_hz() { return 600; }
+inline uint16_t wpm() { return 20; }
+inline float dit_time() { return 1.2/wpm(); }
 inline float dah_time() { return dit_time() * 3; }
 inline float between_elements() { return dit_time(); }
 inline float between_chars() { return dah_time(); }
@@ -163,7 +166,7 @@ int main(void)
   /*float pwm_clock = 7812.5; */ /* if clock/8 */
 
   while(1) {
-    word("kd8zrc/r");
+    word("de kd8zrc/r");
     make_silence(1);
   }
 
@@ -178,7 +181,7 @@ ISR(TIMER2_OVF_vect) {
   phase_acc += dphase;
 
   /* only take most significant 8 bits to find sine value in table */
-  OCR2B = sine_table[(phase_acc>>8)];
+  OCR2B = (uint8_t)(sine_table[phase_acc>>8]>>(8-volume()));
 
   samples--;
   if(samples == 0) go = 0;
