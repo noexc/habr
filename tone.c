@@ -6,6 +6,11 @@
 
 // start morse
 
+#define MORSE_COPY(...) memcpy(out,                                 \
+                               (Morse[10]){__VA_ARGS__, End},       \
+                               10 * sizeof(Morse));                 \
+  return;
+
 #include "tone.h"
 
 // Morse settings
@@ -22,48 +27,48 @@ inline float between_words() { return dit_time() * 7; }
 // Ugly looking morse map.
 void convert_morse(char letter, Morse out[10]) {
   switch (letter) {
-  case 'a': memcpy(out, (Morse[10]){Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'b': memcpy(out, (Morse[10]){Dah, Dit, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'c': memcpy(out, (Morse[10]){Dah, Dit, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'd': memcpy(out, (Morse[10]){Dah, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'e': memcpy(out, (Morse[10]){Dit, End}, 10 * sizeof(Morse)); return;
-  case 'f': memcpy(out, (Morse[10]){Dit, Dit, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'g': memcpy(out, (Morse[10]){Dah, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'h': memcpy(out, (Morse[10]){Dit, Dit, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'i': memcpy(out, (Morse[10]){Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'j': memcpy(out, (Morse[10]){Dit, Dah, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'k': memcpy(out, (Morse[10]){Dah, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'l': memcpy(out, (Morse[10]){Dit, Dah, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'm': memcpy(out, (Morse[10]){Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'n': memcpy(out, (Morse[10]){Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'o': memcpy(out, (Morse[10]){Dah, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'p': memcpy(out, (Morse[10]){Dit, Dah, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case 'q': memcpy(out, (Morse[10]){Dah, Dah, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'r': memcpy(out, (Morse[10]){Dit, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case 's': memcpy(out, (Morse[10]){Dit, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case 't': memcpy(out, (Morse[10]){Dah, End}, 10 * sizeof(Morse)); return;
-  case 'u': memcpy(out, (Morse[10]){Dit, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'v': memcpy(out, (Morse[10]){Dit, Dit, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'w': memcpy(out, (Morse[10]){Dit, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'x': memcpy(out, (Morse[10]){Dah, Dit, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'y': memcpy(out, (Morse[10]){Dah, Dit, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case 'z': memcpy(out, (Morse[10]){Dah, Dah, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case '1': memcpy(out, (Morse[10]){Dit, Dah, Dah, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case '2': memcpy(out, (Morse[10]){Dit, Dit, Dah, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case '3': memcpy(out, (Morse[10]){Dit, Dit, Dit, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case '4': memcpy(out, (Morse[10]){Dit, Dit, Dit, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case '5': memcpy(out, (Morse[10]){Dit, Dit, Dit, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case '6': memcpy(out, (Morse[10]){Dah, Dit, Dit, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case '7': memcpy(out, (Morse[10]){Dah, Dah, Dit, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case '8': memcpy(out, (Morse[10]){Dah, Dah, Dah, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case '9': memcpy(out, (Morse[10]){Dah, Dah, Dah, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case '0': memcpy(out, (Morse[10]){Dah, Dah, Dah, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case '?': memcpy(out, (Morse[10]){Dit, Dit, Dah, Dah, Dit, Dit, End}, 10 * sizeof(Morse)); return;
-  case '.': memcpy(out, (Morse[10]){Dit, Dah, Dit, Dah, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case ',': memcpy(out, (Morse[10]){Dah, Dah, Dit, Dit, Dah, Dah, End}, 10 * sizeof(Morse)); return;
-  case '-': memcpy(out, (Morse[10]){Dah, Dit, Dit, Dit, Dit, Dah, End}, 10 * sizeof(Morse)); return;
-  case '/': memcpy(out, (Morse[10]){Dah, Dit, Dit, Dah, Dit, End}, 10 * sizeof(Morse)); return;
-  case ' ': memcpy(out, (Morse[10]){Space, End}, 10 * sizeof(Morse)); return;
+  case 'a': MORSE_COPY(Dit, Dah)
+  case 'b': MORSE_COPY(Dah, Dit, Dit, Dit)
+  case 'c': MORSE_COPY(Dah, Dit, Dah, Dit)
+  case 'd': MORSE_COPY(Dah, Dit, Dit)
+  case 'e': MORSE_COPY(Dit)
+  case 'f': MORSE_COPY(Dit, Dit, Dah, Dit)
+  case 'g': MORSE_COPY(Dah, Dah, Dit)
+  case 'h': MORSE_COPY(Dit, Dit, Dit, Dit)
+  case 'i': MORSE_COPY(Dit, Dit)
+  case 'j': MORSE_COPY(Dit, Dah, Dah, Dah)
+  case 'k': MORSE_COPY(Dah, Dit, Dah)
+  case 'l': MORSE_COPY(Dit, Dah, Dit, Dit)
+  case 'm': MORSE_COPY(Dah, Dah)
+  case 'n': MORSE_COPY(Dah, Dit)
+  case 'o': MORSE_COPY(Dah, Dah, Dah)
+  case 'p': MORSE_COPY(Dit, Dah, Dah, Dit)
+  case 'q': MORSE_COPY(Dah, Dah, Dit, Dah)
+  case 'r': MORSE_COPY(Dit, Dah, Dit)
+  case 's': MORSE_COPY(Dit, Dit, Dit)
+  case 't': MORSE_COPY(Dah)
+  case 'u': MORSE_COPY(Dit, Dit, Dah)
+  case 'v': MORSE_COPY(Dit, Dit, Dit, Dah)
+  case 'w': MORSE_COPY(Dit, Dah, Dah)
+  case 'x': MORSE_COPY(Dah, Dit, Dit, Dah)
+  case 'y': MORSE_COPY(Dah, Dit, Dah, Dah)
+  case 'z': MORSE_COPY(Dah, Dah, Dit, Dit)
+  case '1': MORSE_COPY(Dit, Dah, Dah, Dah, Dah)
+  case '2': MORSE_COPY(Dit, Dit, Dah, Dah, Dah)
+  case '3': MORSE_COPY(Dit, Dit, Dit, Dah, Dah)
+  case '4': MORSE_COPY(Dit, Dit, Dit, Dit, Dah)
+  case '5': MORSE_COPY(Dit, Dit, Dit, Dit, Dit)
+  case '6': MORSE_COPY(Dah, Dit, Dit, Dit, Dit)
+  case '7': MORSE_COPY(Dah, Dah, Dit, Dit, Dit)
+  case '8': MORSE_COPY(Dah, Dah, Dah, Dit, Dit)
+  case '9': MORSE_COPY(Dah, Dah, Dah, Dah, Dit)
+  case '0': MORSE_COPY(Dah, Dah, Dah, Dah, Dah)
+  case '?': MORSE_COPY(Dit, Dit, Dah, Dah, Dit, Dit)
+  case '.': MORSE_COPY(Dit, Dah, Dit, Dah, Dit, Dah)
+  case ',': MORSE_COPY(Dah, Dah, Dit, Dit, Dah, Dah)
+  case '-': MORSE_COPY(Dah, Dit, Dit, Dit, Dit, Dah)
+  case '/': MORSE_COPY(Dah, Dit, Dit, Dah, Dit)
+  case ' ': MORSE_COPY(Space)
   default: return;
   }
 }
@@ -91,7 +96,6 @@ void play_morse(Morse out[10]) {
     switch (out[i]) {
     case Dit:
       dit();
-
       continue;
     case Dah:
       dah();
